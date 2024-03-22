@@ -1,0 +1,17 @@
+version: '3'
+services:
+  web:
+    build: .  # Path to your Dockerfile
+    ports:
+      - "8000:8000"  # Map host port 8000 to container port 8000
+    volumes:
+      - ./app:/app  # Mount your application code directory for live editing
+    env_file:
+      - ./.env  # Load environment variables from .env file
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
